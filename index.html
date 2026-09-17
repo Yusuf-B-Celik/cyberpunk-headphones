@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CY-01 · Cyberpunk Kulaklık — 3B Model</title>
+<meta name="description" content="Prosedürel üretilmiş cyberpunk kulaklık modeli: mat karbon fiber gövde, yumuşak deri kulak pedleri, net panel çizgileri. Tarayıcıda gerçek zamanlı 3B önizleme (GLB + Draco).">
+<meta name="color-scheme" content="dark">
+<link rel="preload" href="assets/js/viewer.bundle.js" as="script" crossorigin>
+<link rel="stylesheet" href="assets/css/viewer.css">
+</head>
+<body>
+
+<div id="stage" aria-hidden="true">
+  <canvas id="gl"></canvas>
+</div>
+
+<div id="boot" class="boot">
+  <div class="boot__inner">
+    <div class="boot__mark">CY<span>·</span>01</div>
+    <div class="boot__bar"><i id="bootbar"></i></div>
+    <div class="boot__label" id="bootlabel">model yükleniyor…</div>
+    <noscript class="boot__label">Bu önizleme WebGL + JavaScript gerektirir.</noscript>
+  </div>
+</div>
+
+<header class="hud hud--top">
+  <div class="brand">
+    <span class="brand__mark">CY<span>·</span>01</span>
+    <span class="brand__name">OVER-EAR HEADSET</span>
+  </div>
+  <dl class="specs" id="specs">
+    <div><dt>GÖVDE</dt><dd>karbon fiber · mat</dd></div>
+    <div><dt>PED</dt><dd>deri · yumuşak</dd></div>
+    <div><dt>ÜÇGEN</dt><dd id="specTris">—</dd></div>
+    <div><dt>ÖLÇÜ</dt><dd id="specSize">—</dd></div>
+  </dl>
+  <button class="icon-btn" id="btnPanel" aria-expanded="true" aria-controls="panel" title="Paneli aç/kapat (P)">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    <span>PANEL</span>
+  </button>
+</header>
+
+<aside class="panel" id="panel" aria-label="Model denetleyicisi">
+  <section class="panel__sec">
+    <h2>KAMERA</h2>
+    <div class="views">
+      <button data-view="hero" class="on">3/4</button>
+      <button data-view="front">ÖN</button>
+      <button data-view="side">YAN</button>
+      <button data-view="top">ÜST</button>
+      <button data-view="bottom">ALT</button>
+    </div>
+  </section>
+
+  <section class="panel__sec">
+    <h2>DETAY ODAĞI</h2>
+    <div class="views views--focus">
+      <button data-focus="pad">Deri ped</button>
+      <button data-focus="shell">Karbon gövde</button>
+      <button data-focus="lines">Panel çizgileri</button>
+      <button data-focus="grille">Sürücü ızgarası</button>
+      <button data-focus="hinge">Menteşe</button>
+    </div>
+    <p class="note" id="focusNote">Bir parçaya odaklan, model oraya yaklaşır.</p>
+  </section>
+
+  <section class="panel__sec">
+    <h2>GÖRÜNÜM</h2>
+    <label class="row">
+      <span>Patlat (exploded)</span>
+      <input type="range" id="explode" min="0" max="100" value="0" step="1">
+      <output id="explodeOut">0%</output>
+    </label>
+    <label class="row">
+      <span>Neon şeritler</span>
+      <input type="checkbox" id="neon" checked>
+    </label>
+    <label class="row">
+      <span>Tel kafes</span>
+      <input type="checkbox" id="wire">
+    </label>
+    <label class="row">
+      <span>Kil (malzeme yok)</span>
+      <input type="checkbox" id="clay">
+    </label>
+    <label class="row">
+      <span>Otomatik döndür</span>
+      <input type="checkbox" id="spin" checked>
+    </label>
+    <label class="row">
+      <span>Zemin gölgesi</span>
+      <input type="checkbox" id="ground" checked>
+    </label>
+    <label class="row">
+      <span>Glow (bloom)</span>
+      <input type="checkbox" id="bloom" checked>
+    </label>
+  </section>
+
+  <section class="panel__sec">
+    <h2>EKRAN GÖRÜNTÜSÜ</h2>
+    <div class="views">
+      <button id="btnShot">PNG indir</button>
+      <button id="btnReset">Sıfırla</button>
+    </div>
+  </section>
+
+  <section class="panel__sec panel__sec--meta">
+    <h2>ÜRETİM</h2>
+    <p>Mesh: Blender 5.2, parametrik süpürme (sweep) primitifleri. Dokular prosedürel
+      (numpy) — 2/2 twill karbon normal haritası, deri grenli normal haritası.
+      Simetri: sağ yarının aynası; doğrulandı.</p>
+    <p class="links">
+      <a href="docs/renders/view_hero.jpg">Render</a>
+      <a href="model/cyberpunk-headphones.glb">GLB (1.7 MB)</a>
+      <a href="https://github.com/" id="repoLink">Kaynak</a>
+    </p>
+  </section>
+</aside>
+
+<div class="hud hud--bottom">
+  <div class="hints">
+    <span><b>sürükle</b> döndür</span>
+    <span><b>tekerlek</b> yakınlaş</span>
+    <span><b>sağ tık</b> kaydır</span>
+    <span><b>P</b> panel · <b>R</b> döndür · <b>E</b> patlat · <b>W</b> kafes</span>
+  </div>
+  <div class="fps" id="fps">—</div>
+</div>
+
+<div class="caption" id="caption" role="status" aria-live="polite"></div>
+
+<script type="module" src="assets/js/viewer.bundle.js"></script>
+</body>
+</html>
