@@ -5,7 +5,7 @@ döndürülebilir 3B modeli. Model Blender'da **parametrik olarak kod ile** üre
 (elle modelleme yok), dokular numpy ile prosedürel olarak hesaplandı, önizleme
 three.js ile GitHub Pages üzerinde çalışıyor.
 
-**Önizleme:** `https://<kullanıcı>.github.io/cyberpunk-headphones/`
+**Önizleme:** https://yusuf-b-celik.github.io/cyberpunk-headphones/
 
 ## Görseller
 
